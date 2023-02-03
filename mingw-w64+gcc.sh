@@ -10,9 +10,9 @@ extract_file isl-0.18.tar
 extract_file mingw-w64-v5.0.0.zip
 extract_file gcc-6.3.0.tar
 
-patch -Z -d /c/temp/gcc/mpfr-3.1.5 -p1 < mpfr.patch
+patch -Z -d /c/lwx/winbuild/gcc/mpfr-3.1.5 -p1 < mpfr.patch
 
-cd /c/temp/gcc
+cd /c/lwx/winbuild/gcc
 
 # Build mingw-w64.
 mv mingw-w64-v5.0.0 src
@@ -20,12 +20,12 @@ mkdir build dest
 cd build
 
 ../src/configure --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --disable-lib32 \
---prefix=/c/temp/gcc/dest/x86_64-w64-mingw32 --with-sysroot=/c/temp/gcc/dest/x86_64-w64-mingw32 --enable-wildcard \
+--prefix=/c/lwx/winbuild/gcc/dest/x86_64-w64-mingw32 --with-sysroot=/c/lwx/winbuild/gcc/dest/x86_64-w64-mingw32 --enable-wildcard \
 || fail_with mingw-w64 1 - EPIC FAIL
 
 make $X_MAKE_JOBS all "CFLAGS=-s -O3" || fail_with mingw-w64 2 - EPIC FAIL
 make install || fail_with mingw-w64 3 - EPIC FAIL
-cd /c/temp/gcc
+cd /c/lwx/winbuild/gcc
 rm -rf build src
 
 # Prepare to build gcc.
@@ -46,7 +46,7 @@ mkdir build
 cd build
 
 ../src/configure --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 \
---target=x86_64-w64-mingw32 --disable-multilib --prefix=/c/temp/gcc/dest --with-sysroot=/c/temp/gcc/dest \
+--target=x86_64-w64-mingw32 --disable-multilib --prefix=/c/lwx/winbuild/gcc/dest --with-sysroot=/c/lwx/winbuild/gcc/dest \
 --disable-libstdcxx-pch --disable-nls --disable-shared --disable-win32-registry --enable-checking=release \
 --with-tune=haswell || fail_with gcc 1 - EPIC FAIL
 
@@ -55,8 +55,8 @@ cd build
 # --host=x86_64-w64-mingw32       : Ditto.
 # --target=x86_64-w64-mingw32     : Ditto.
 # --disable-multilib              : I want 64-bit only.
-# --prefix=/c/temp/gcc/dest       : I want the compiler to be installed here.
-# --with-sysroot=/c/temp/gcc/dest : Ditto. (This one is important!)
+# --prefix=/c/lwx/winbuild/gcc/dest       : I want the compiler to be installed here.
+# --with-sysroot=/c/lwx/winbuild/gcc/dest : Ditto. (This one is important!)
 # --disable-libstdcxx-pch         : I don't use this, and it takes up a ton of space.
 # --disable-nls                   : I don't want Native Language Support.
 # --disable-shared                : I don't want DLLs.
@@ -71,13 +71,13 @@ make $X_MAKE_JOBS bootstrap "CFLAGS=-g0 -O3" "CXXFLAGS=-g0 -O3" "CFLAGS_FOR_TARG
 make install || fail_with gcc 3 - EPIC FAIL
 
 # Cleanup.
-cd /c/temp/gcc
+cd /c/lwx/winbuild/gcc
 rm -rf build src
 mv dest mingw-w64+gcc
 cd mingw-w64+gcc
 find -name "*.la" -type f -print -exec rm {} ";"
-rm -rf bin/c++.exe bin/x86_64-w64-mingw32-* share
-rm -rf mingw x86_64-w64-mingw32/lib64
+# rm -rf bin/c++.exe bin/x86_64-w64-mingw32-* share
+# rm -rf mingw x86_64-w64-mingw32/lib64
 find -name "*.exe" -type f -print -exec strip -s {} ";"
 
 7z -mx0 a ../mingw-w64+gcc.7z *

@@ -4,7 +4,7 @@ source ./0_append_distro_path.sh
 
 extract_file glm-0.9.8.3.zip
 
-cd /c/temp/gcc
+cd /c/lwx/winbuild/gcc
 mv glm-0.9.8.3 src
 mkdir -p dest/include
 mv src/glm dest/include
