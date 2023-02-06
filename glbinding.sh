@@ -4,9 +4,9 @@ source ./0_append_distro_path.sh
 
 extract_file glbinding-2.1.1.zip
 
-patch -d /c/lwx/winbuild/gcc/glbinding-2.1.1 -p1 < glbinding.patch
+patch -d $X_DISTRO_BASE/glbinding-2.1.1 -p1 < glbinding.patch
 
-cd /c/lwx/winbuild/gcc
+cd $X_DISTRO_BASE
 mv glbinding-2.1.1 src
 mkdir build dest
 cd build
@@ -14,15 +14,15 @@ cd build
 cmake \
 "-DBUILD_SHARED_LIBS=OFF" \
 "-DCMAKE_CXX_FLAGS=-DGLBINDING_USE_BOOST_THREAD -DBOOST_THREAD_VERSION=4 -s -O3 -DSYSTEM_WINDOWS" \
-"-DCMAKE_INSTALL_PREFIX=/c/lwx/winbuild/gcc/dest" \
+"-DCMAKE_INSTALL_PREFIX=$X_DISTRO_BASE/dest" \
 "-DOPENGL_gl_LIBRARY=/c/mingw/x86_64-w64-mingw32/lib/libopengl32.a" \
 "-DOPENGL_INCLUDE_DIR=/c/mingw/x86_64-w64-mingw32/include/gl" \
 "-DOPTION_BUILD_TESTS=OFF" \
--G "Unix Makefiles" /c/lwx/winbuild/gcc/src || fail_with glbinding 1 - EPIC FAIL
+-G "Unix Makefiles" $X_DISTRO_BASE/src || fail_with glbinding 1 - EPIC FAIL
 
 make $X_MAKE_JOBS || fail_with glbinding 2 - EPIC FAIL
 make install || fail_with glbinding 3 - EPIC FAIL
-cd /c/lwx/winbuild/gcc
+cd $X_DISTRO_BASE
 rm -rf build src
 mv dest glbinding-2.1.1
 cd glbinding-2.1.1

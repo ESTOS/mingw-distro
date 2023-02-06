@@ -5,7 +5,7 @@ source ./0_append_distro_path.sh
 extract_file pngcheck-2.3.0.tar
 extract_file pngcrush-1.8.10-nolib.tar
 
-cd /c/lwx/winbuild/gcc
+cd $X_DISTRO_BASE
 mkdir -p dest/bin
 
 gcc -s -O3 pngcheck-2.3.0/pngcheck.c -o dest/bin/pngcheck.exe -lpng -lz || fail_with pngcheck 1 - EPIC FAIL

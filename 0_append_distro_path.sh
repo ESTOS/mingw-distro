@@ -1,6 +1,8 @@
 #!/bin/sh
 
-export X_DISTRO_ROOT=/c/lwx/winbuild/gcc/mingw
+export X_DISTRO_BASE=/c/lwx/winbuild/gcc
+
+export X_DISTRO_ROOT=$X_DISTRO_BASE/mingw
 
 export X_DISTRO_BIN=$X_DISTRO_ROOT/bin
 export X_DISTRO_INC=$X_DISTRO_ROOT/include
@@ -17,7 +19,7 @@ function fail_with {
 }
 
 function extract_file {
-    7z x '-o/c/lwx/winbuild/gcc' $* || fail_with $* - EPIC FAIL
+    7z x '-o$X_DISTRO_BASE' $* || fail_with $* - EPIC FAIL
 }
 
 export X_MAKE_JOBS="-j$NUMBER_OF_PROCESSORS -O"

@@ -4,17 +4,17 @@ source ./0_append_distro_path.sh
 
 extract_file libjpeg-turbo-1.5.1.tar
 
-cd /c/lwx/winbuild/gcc
+cd $X_DISTRO_BASE
 mv libjpeg-turbo-1.5.1 src
 mkdir -p build dest/bin dest/include dest/lib
 cd build
 
 ../src/configure --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --disable-shared \
---prefix=/c/lwx/winbuild/gcc/dest "CFLAGS=-s -O3 -DTWO_FILE_COMMANDLINE" || fail_with libjpeg-turbo 1 - EPIC FAIL
+--prefix=$X_DISTRO_BASE/dest "CFLAGS=-s -O3 -DTWO_FILE_COMMANDLINE" || fail_with libjpeg-turbo 1 - EPIC FAIL
 
 # make install must NOT be used, as it will contaminate the Windows system directory.
 make $X_MAKE_JOBS || fail_with libjpeg-turbo 2 - EPIC FAIL
-cd /c/lwx/winbuild/gcc
+cd $X_DISTRO_BASE
 mv build/jpegtran.exe dest/bin/jpegtran.exe || fail_with libjpeg-turbo 3 - EPIC FAIL
 
 mv build/jconfig.h src/jerror.h src/jmorecfg.h src/jpeglib.h src/turbojpeg.h dest/include \
