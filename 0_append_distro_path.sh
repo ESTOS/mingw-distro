@@ -19,7 +19,7 @@ function fail_with {
 }
 
 function extract_file {
-    7z x '-o$X_DISTRO_BASE' $* || fail_with $* - EPIC FAIL
+    7z x '-o'$X_DISTRO_BASE $* || fail_with $* - EPIC FAIL
 }
 
 export X_MAKE_JOBS="-j$NUMBER_OF_PROCESSORS -O"
