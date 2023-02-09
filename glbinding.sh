@@ -13,10 +13,10 @@ cd build
 
 cmake \
 "-DBUILD_SHARED_LIBS=OFF" \
-"-DCMAKE_CXX_FLAGS=-DGLBINDING_USE_BOOST_THREAD -DBOOST_THREAD_VERSION=4 -s -O3 -DSYSTEM_WINDOWS" \
+"-DCMAKE_CXX_FLAGS=-DGLBINDING_USE_BOOST_THREAD -DBOOST_THREAD_VERSION=4 -s -O3 -DSYSTEM_WINDOWS -I/mingw64/include" \
 "-DCMAKE_INSTALL_PREFIX=$X_DISTRO_BASE/dest" \
-"-DOPENGL_gl_LIBRARY=/c/mingw/x86_64-w64-mingw32/lib/libopengl32.a" \
-"-DOPENGL_INCLUDE_DIR=/c/mingw/x86_64-w64-mingw32/include/gl" \
+"-DOPENGL_gl_LIBRARY=/mingw64/x86_64-w64-mingw32/lib/libopengl32.a" \
+"-DOPENGL_INCLUDE_DIR=/mingw64/x86_64-w64-mingw32/include/gl" \
 "-DOPTION_BUILD_TESTS=OFF" \
 -G "Unix Makefiles" $X_DISTRO_BASE/src || fail_with glbinding 1 - EPIC FAIL
 

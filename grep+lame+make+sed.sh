@@ -40,7 +40,7 @@ rm -rf build src
 
 mv make-4.2.1 src
 cd src
-cmd /c "build_w32.bat gcc"
+cmd //c "build_w32.bat gcc"
 strip -s GccRel/gnumake.exe || fail_with make 1 - EPIC FAIL
 mv GccRel/gnumake.exe ../dest/bin/make.exe || fail_with make 2 - EPIC FAIL
 # mingw32-make.exe is for CMake.

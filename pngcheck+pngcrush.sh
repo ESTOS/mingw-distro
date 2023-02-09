@@ -10,7 +10,7 @@ mkdir -p dest/bin
 
 gcc -s -O3 pngcheck-2.3.0/pngcheck.c -o dest/bin/pngcheck.exe -lpng -lz || fail_with pngcheck 1 - EPIC FAIL
 
-gcc -s -O3 pngcrush-1.8.10-nolib/pngcrush.c -o dest/bin/pngcrush.exe -lpng -lz || fail_with pngcrush 1 - EPIC FAIL
+gcc -s -O3 pngcrush-1.8.10-nolib/pngcrush.c -I/mingw64/include -o dest/bin/pngcrush.exe -lpng -lz || fail_with pngcrush 1 - EPIC FAIL
 
 rm -rf pngcheck-2.3.0 pngcrush-1.8.10-nolib
 mv dest pngcheck+pngcrush

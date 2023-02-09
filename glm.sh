@@ -5,7 +5,7 @@ source ./0_append_distro_path.sh
 extract_file glm-0.9.8.3.zip
 
 cd $X_DISTRO_BASE
-mv glm-0.9.8.3 src
+mv glm src
 mkdir -p dest/include
 mv src/glm dest/include
 rm -rf src
