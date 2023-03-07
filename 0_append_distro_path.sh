@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export X_DISTRO_BASE=/c/lwx/winbuild/gcc
+export X_DISTRO_BASE=/x/dev/tools/mingw/winbuild/gcc
 
 export X_DISTRO_ROOT=$X_DISTRO_BASE/mingw
 
